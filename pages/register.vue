@@ -8,7 +8,7 @@
         <input id="password" v-model="password" class="form-input" type="password" required placeholder="Пароль">
         <div class="checkbox-container">
           <input type="checkbox" id="acceptRules" required>
-          <label for="acceptRules">Согласен с правилами</label>
+          <label for="acceptRules">Согласен на обработку персональных данных</label>
         </div>
         <button type="submit">Зарегистрироваться</button>
       </form>
@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/auth';
+import { API_URL } from '~/consts/consts';
+
+useHead({ title: 'EE | Регистрация' })
 
 const username = ref('');
 const password = ref('');
@@ -31,24 +31,22 @@ const errorMessage = ref('');
 const router = useRouter();
 const authStore = useAuthStore()
 
-const register = async () => {
-  try {
-    const response = await axios.post('http://localhost:8000/auth/register', {
+const register = () => {
+  $fetch(`${API_URL}/auth/register`, {
+    method: 'POST',
+    body: {
       username: username.value,
       email: email.value,
       password: password.value
-    });
-
-    // Сохранение токена
-    const token = response.data.token
-    localStorage.setItem('token', token);
-    authStore.login(username.value, token);
-
-    // Перенаправление на главную страницу
-    router.push('/');
-  } catch (error) {
-    errorMessage.value = error.response.data.msg || 'Ошибка при авторизации';
-  }
+    },
+  })
+  .then(response => {
+    authStore.login(username.value, response.token)
+    router.push('/')
+  })
+  .catch(error => {
+    errorMessage.value = error.message || 'Ошибка при регистрации'
+  })
 };
 </script>
 

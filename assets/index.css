@@ -1,0 +1,155 @@
+body { 
+    height: 100vh;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    background-color: #16161D;
+    color: #DCD7BA;
+    accent-color: #7E9CD8;
+} 
+
+a {
+    text-decoration: none;
+    color: #7E9CD8;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: #957FB8;
+}
+
+html {
+    font-size: 14px;
+    word-spacing: 1px;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+}
+
+::-moz-selection { /* Code for Firefox */
+  background:#223249;
+}
+
+::selection {
+  background: #223249;
+}
+
+::placeholder {
+    color: #727169;
+    opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Edge 12 -18 */
+    color: #727169;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    background: #1F1F28;
+    border: none;
+    font-family: sans-serif;
+    font-size: 14px;
+    padding-left: 16px;
+    color: #DCD7BA;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    color: #DCD7BA;
+    font-size: 14px;
+}
+
+.checkbox-container input {
+    margin-right: 12px;
+}
+
+button {
+    padding: 8px 16px 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1F1F28;
+    color: #DCD7BA;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #2A2A37;
+}
+
+code {
+    background-color: #1F1F28;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1F1F28;
+    color: #DCD7BA;
+}
+
+th, td {
+    padding: 16px;
+    border-bottom: 3px solid #16161D;
+}
+
+th {
+    color: #727169;
+}
+
+tbody tr:hover {
+    background-color: #2A2A37;
+}
+
+td {
+    color: #DCD7BA;
+}
+
+thead {
+    background-color: #1F1F28;
+}
+
+thead:hover {
+    background-color: #2A2A37;
+}
+  
+.loader {
+    width: 16px;
+    height: 16px;
+    border: 3px solid #727169;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.content {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}

@@ -1,11 +1,13 @@
 <template>
-  <div v-if="!isLoading">
-    <h1>Профиль</h1>
+  <div v-if="!isLoading" class="content">
+    <h1>Личный кабинет</h1>
     <p>Привет, {{ authStore.username }}!</p>
   </div>
 </template>
 
 <script setup>
+useHead({ title: 'EE | Личный кабинет' })
+
 definePageMeta({
   middleware: ['auth']
 });
@@ -26,4 +28,5 @@ if (process.client) {
 </script>
 
 <style scoped> 
+
 </style>

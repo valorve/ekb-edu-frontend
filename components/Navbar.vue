@@ -1,10 +1,20 @@
 <template>
-  <nav v-if="!isLoading" class="navbar">
+  <nav class="navbar">
+    <router-link to="/">
+      <div id="logo">
+        <img style="height: 32px; margin-right: 16px" src="/logo.svg" alt="logo">
+        EKB<br>EDU
+      </div>
+    </router-link>
+    
     <ul v-if="authStore">
-      <li><router-link to="/">Главная</router-link></li>
+      <li><router-link to="/courses">Курсы</router-link></li>
+      <li><router-link to="/authors">Авторы</router-link></li>
+      <li v-if="authStore.isAuthenticated"><router-link to="/lessons">Уроки</router-link></li>
       <li v-if="authStore.isAuthenticated"><router-link to="/me">Личный кабинет</router-link></li>
-      <li v-if="!authStore.isAuthenticated"><router-link to="/login">Войти</router-link></li>
-      <li v-if="authStore.isAuthenticated" @click="logout"><div class="logout">Выйти</div></li>
+      <li v-if="authStore.isAuthenticated && authStore.isAdmin"><router-link to="/admin">Админ панель</router-link></li>
+      <li v-if="!authStore.isAuthenticated"><router-link id="login" to="/login">Войти</router-link></li>
+      <li v-if="authStore.isAuthenticated" @click="logout"><div id="logout">Выйти</div></li>
     </ul>
   </nav>
 </template>
@@ -32,8 +42,18 @@ const logout = () => {
 
 <style scoped>
 .navbar {
+  display: flex;
   overflow: hidden;
-  margin-top: 15px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.navbar a {
+  color: #DCD7BA;
+}
+
+.navbar, a:hover {
+    color: #7E9CD8;
 }
 
 .navbar ul {
@@ -41,6 +61,7 @@ const logout = () => {
   margin: 0;
   padding: 0;
   display: flex;
+  flex-flow: row wrap;
   justify-content: center; /* Выравнивает элементы по центру */
 }
 
@@ -54,7 +75,7 @@ const logout = () => {
   padding: 8px 16px;
   text-decoration: none;
   color: #DCD7BA;
-  margin: 0px 10px 0px 10px;
+  margin: 0px 8px 16px 0px;
   border-radius: 12px;
 }
 
@@ -69,16 +90,27 @@ const logout = () => {
   color: #16161D;
 }
 
-.logout {
-  display: flex;
+#login {
+  background-color: #1F1F28;
+  color: #727169;
+  margin: 0px 25px 0px 25px;
+}
+
+#logout {
   cursor: pointer;
   background-color: #1F1F28;
   color: #727169;
-  width: 100%;
-  height: 100%;
-  margin: 0px 25px 0px 25px;
+  padding: 8px 16px;
+  margin-left: 32px;
+  border-radius: 12px;
+}
+
+#logo {
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 12px;
+  margin-right: 48px;
+  user-select: none;
+  font-weight: 600;
 }
 </style>

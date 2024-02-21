@@ -5,8 +5,8 @@
       <form @submit.prevent="login">
         <input id="username" v-model="username" class="form-input" type="text" required placeholder="Имя пользователя">
         <input id="password" v-model="password" class="form-input" type="password" required placeholder="Пароль">
-        <p>Нет аккаунта? <NuxtLink to="/register">Зарегистрироваться</NuxtLink></p>
         <button type="submit">Войти</button>
+        <p>Нет аккаунта? <NuxtLink to="/register">Зарегистрироваться</NuxtLink></p>
       </form>
     </div>
     <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
@@ -14,14 +14,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router';
 import { useAuthStore } from '~/stores/auth';
+import { API_URL } from '~/consts/consts';
 
 definePageMeta({
   middleware: ['auth']
 });
+
+useHead({ title: 'EE | Авторизация' })
 
 const username = ref('');
 const password = ref('');
@@ -30,24 +30,39 @@ const errorMessage = ref('');
 const router = useRouter();
 const authStore = useAuthStore()
 
-const login = async () => {
-  try {
-    const response = await axios.post('http://localhost:8000/auth/login', {
+// const login = async () => {
+//   try {
+//     const response = await axios.post(`${API_URL}/auth/login`, {
+//       username: username.value,
+//       password: password.value
+//     });
+
+//     // Сохранение токена
+//     authStore.login(username.value, response.data.token);
+
+//     // Перенаправление на главную страницу
+//     router.push('/');
+//   } catch (error) {
+//     errorMessage.value = error.response.data.msg || 'Ошибка при авторизации';
+//   }
+// };
+
+const login = () => {
+  $fetch(`${API_URL}/auth/login`, {
+    method: 'POST',
+    body: {
       username: username.value,
-      password: password.value
-    });
-
-    // Сохранение токена
-    const token = response.data.token
-    localStorage.setItem('token', token);
-    authStore.login(username.value, token);
-
-    // Перенаправление на главную страницу
-    router.push('/');
-  } catch (error) {
-    errorMessage.value = error.response.data.msg || 'Ошибка при авторизации';
-  }
-};
+      password: password.value,
+    }
+  })
+  .then(response => {
+    authStore.login(username.value, response.token)
+    router.push('/')
+  })
+  .catch(error => {
+    errorMessage.value = error.message || 'Ошибка при авторизации'
+  })
+}
 </script>
 
 <style scoped>
