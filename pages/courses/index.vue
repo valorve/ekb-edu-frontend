@@ -18,7 +18,7 @@
           {{ course.description }}
         </div>
 
-        <div v-if="course.meta.features && course.meta.features.length > 0" class="features">
+        <div v-if="course.meta && course.meta.features && course.meta.features.length > 0" class="features">
           <img v-for="feature in course.meta.features" class="feature" :src="`/technologies/${feature}.svg`" :alt="`${feature}`">
         </div>
       </div>
@@ -31,8 +31,15 @@
 
 </template>
 
-<style scoped>
+<script setup>
+import { API_URL } from '~/consts/consts';
 
+useHead({ title: 'EE | Курсы' })
+
+const { data: courses } = await useFetch(`${API_URL}/courses`)
+</script>
+
+<style scoped>
 .course {
   display: flex;
   justify-content: space-between;
@@ -93,11 +100,3 @@
   opacity: 50%;
 }
 </style>
-
-<script setup>
-import { API_URL } from '~/consts/consts';
-
-useHead({ title: 'EE | Курсы' })
-
-const { data: courses } = await useFetch(`${API_URL}/courses`)
-</script>

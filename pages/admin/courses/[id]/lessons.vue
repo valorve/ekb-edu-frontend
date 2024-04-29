@@ -23,7 +23,7 @@
         Для данной секции нет уроков
       </p>
 
-      <button @click.prevent="addLesson">
+      <button v-if="dropdownOptions.length > 0" @click.prevent="addLesson">
         <div class="loading-text">
           Добавить
         </div>
@@ -176,8 +176,10 @@ const saveChanges = async () => {
   }
 }
 
-await getLessons(dropdownOptions.value[0].section_id)
-selectedSection.value = dropdownOptions.value[0]
+if (dropdownOptions.value.length > 0) {
+  await getLessons(dropdownOptions.value[0].section_id)
+  selectedSection.value = dropdownOptions.value[0]
+}
 
 </script>
 

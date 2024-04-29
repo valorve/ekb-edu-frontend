@@ -45,7 +45,6 @@ definePageMeta({
 
 useHead({ title: `EE | Уроки` })
 
-// Пример использования useAsyncData
 const { data: lessons, error, pending } = useAsyncData('lessonsData', async () => {
  const token = useCookie('token', { readonly: true }).value;
   if (!token) {

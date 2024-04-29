@@ -1,8 +1,9 @@
 <template>
-    <div class="error-container">
-        <div class="error-code">{{ error.statusCode }}</div>
-        <div class="error-message">{{ error.message }}</div>
-    </div>
+  <Navbar />
+  <div class="error-container">
+      <div class="error-code">{{ error.statusCode }}</div>
+      <div class="error-message">{{ error.message }}</div>
+  </div>
 </template>
 
 <script>

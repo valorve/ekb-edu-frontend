@@ -3,13 +3,7 @@
     <h1>Редактирование секций</h1>
     <form @submit.prevent="saveChanges">
       <div v-for="(section, index) in sections" :key="section.section_id" class="section-input">
-        <input
-          v-model="section.title"
-          type="text"
-          placeholder="Заголовок"
-          required
-        >
-
+        <input v-model="section.title" type="text" placeholder="Заголовок" required>
         <button class="delete-button" @click.prevent="deleteSection(section.section_id)">✕</button>
         <button v-if="index !== 0" @click.prevent="moveSection(index, -1)">↑</button>
         <button v-if="index !== sections.length - 1" @click.prevent="moveSection(index, 1)">↓</button>

@@ -1,7 +1,8 @@
 <template>
   <div class="dropdown">
     <button class="dropdown-button" @click="toggleDropdown">
-      <slot name="button-content"> Выбрано: {{ selected.text }}</slot>
+      <slot v-if="selected" name="button-content"> Выбрано: {{ selected.text }}</slot>
+      <slot v-else>Нет элементов</slot>
     </button>
     <div class="dropdown-content" v-if="isOpen">
       <a v-for="item in items" :key="item.value" href="#" @click.prevent="selectItem(item)">
