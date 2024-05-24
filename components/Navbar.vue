@@ -6,8 +6,8 @@
         EKB<br>EDU
       </div>
     </router-link>
-    
-    <ul v-if="authStore">
+    <span v-if="isLoading" class="loader"></span>
+    <ul v-if="authStore && !isLoading">
       <li><router-link to="/courses">Курсы</router-link></li>
       <li><router-link to="/authors">Авторы</router-link></li>
       <li v-if="authStore.isAuthenticated"><router-link to="/lessons">Уроки</router-link></li>
@@ -29,9 +29,8 @@ const isLoading = ref(true);
 if (process.client) {
   onMounted(() => {
     authStore.initializeAuth();
+    isLoading.value = false;
   });
-
-  isLoading.value = false;
 }
 
 const logout = () => {
@@ -88,6 +87,11 @@ const logout = () => {
 .navbar li a.router-link-exact-active {
   background-color: #DCD7BA;
   color: #16161D;
+}
+
+.loader {
+  margin: 8px 32px 16px 0px;
+  justify-content: center;
 }
 
 #login {
