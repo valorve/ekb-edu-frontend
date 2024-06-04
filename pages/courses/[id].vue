@@ -9,7 +9,7 @@
         <h3 v-if="sections && sections.length > 0">План обучения</h3>
         <div v-if="sections && sections.length > 0" class="sections">
           <ol>
-            <li v-for="section in sections">
+            <li v-for="section in sortedSections" :key="section.section_id">
               <NuxtLink :to="`/sections/${section.section_id}`">
                 {{ section.title }}
               </NuxtLink>
@@ -24,7 +24,6 @@
         
         <button>Записаться</button>
       </div>
-     
     </div>
   </div>
 </template>
@@ -35,6 +34,10 @@ import { API_URL } from '~/consts/consts';
 const id = useRoute().params.id
 const { data: course } = await useFetch(`${API_URL}/courses/${id}`)
 const { data: sections } = await useFetch(`${API_URL}/courses/${id}/sections`)
+
+const sortedSections = computed(() => {
+  return sections.value ? sections.value.slice().sort((a, b) => a.order - b.order) : []
+})
 
 useHead({ title: `EE | ${course.value.title}` })
 
