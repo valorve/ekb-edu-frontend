@@ -51,7 +51,7 @@ const { data } = await useAsyncData('quizzData', async () => {
   return response.json();
 });
 
-data.questions.value.map(question => {
+data.value.questions.map(question => {
   question.question_text = toHtml(question.question_text)
 })
 
