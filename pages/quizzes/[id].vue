@@ -4,7 +4,8 @@
     <form @submit.prevent="saveAnswers">
       <div style="display: flex; flex-direction: column;" v-for="question in data.questions" :key="question.question_id">
         <p>
-          {{ question.question_text }}
+          <!-- {{ question.question_text }} -->
+          <div v-html="question.question_text"></div>
         </p>
         <input v-model="question.correct_answer" type="text" required placeholder="Введите ответ">
       </div>
@@ -24,6 +25,7 @@ definePageMeta({
 });
 
 import { API_URL } from '~/consts/consts';
+const { toHtml } = useNuxtApp().$markdown;
 
 let token = useCookie('token', { readonly: true })
 let route = useRoute()
@@ -49,6 +51,9 @@ const { data } = await useAsyncData('quizzData', async () => {
   return response.json();
 });
 
+data.questions.value.map(question => {
+  question.question_text = toHtml(question.question_text)
+})
 
 useHead({ title: `EE | ${data.value.quiz.title}` })
 
