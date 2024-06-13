@@ -16,7 +16,7 @@ const route = useRoute();
 const lessons = ref([])
 
 const getLessons = async (section_id) => {
-  const response = await $fetch(`${API_URL}/courses/sections/${section_id}/lessons`)
+  const response = await $fetch(`${API_URL}/sections/${section_id}/lessons`)
 
   response.sort((a, b) => a.order > b.order)
 
