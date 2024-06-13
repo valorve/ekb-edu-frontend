@@ -25,7 +25,7 @@ const getLessons = async (section_id) => {
 }
 
 const { data: section } = await useAsyncData('sectionData', async () => {
-  const response = await fetch(`${API_URL}/sections/${route.params.id}`);
+  const response = await fetch(`${API_URL}/courses/sections/${route.params.id}`);
 
   if (!response.ok) {
     alert('Failed to fetch section');
