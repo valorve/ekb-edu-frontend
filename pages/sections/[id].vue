@@ -16,11 +16,7 @@ const route = useRoute();
 const lessons = ref([])
 
 const getLessons = async (section_id) => {
-  const response = await $fetch(`${API_URL}/courses/sections/${section_id}/lessons`, {
-    headers: {
-      authorization: `Bearer ${token.value}`
-    }
-  })
+  const response = await $fetch(`${API_URL}/courses/sections/${section_id}/lessons`)
 
   response.sort((a, b) => a.order > b.order)
 
@@ -29,11 +25,7 @@ const getLessons = async (section_id) => {
 }
 
 const { data: section } = await useAsyncData('sectionData', async () => {
-  const response = await fetch(`${API_URL}/sections/${route.params.id}`, {
-    headers: {
-      authorization: `Bearer ${token.value}`,
-    },
-  });
+  const response = await fetch(`${API_URL}/sections/${route.params.id}`);
 
   if (!response.ok) {
     alert('Failed to fetch section');
