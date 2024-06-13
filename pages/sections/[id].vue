@@ -10,6 +10,8 @@
 </template>
 
 <script setup>
+import { API_URL } from '~/consts/consts';
+
 const route = useRoute();
 const lessons = ref([])
 
@@ -43,7 +45,7 @@ const { data: section } = await useAsyncData('sectionData', async () => {
 
 await getLessons(route.params.id)
 
-useHead({ title: 'EE | ' })
+useHead({ title: `EE | ${section.value.title}` })
 </script>
 
 <style scoped>
