@@ -17,11 +17,8 @@ const lessons = ref([])
 
 const getLessons = async (section_id) => {
   const response = await $fetch(`${API_URL}/courses/sections/${section_id}/lessons`)
-
   response.sort((a, b) => a.order > b.order)
-
   lessons.value = response
-  maxLesson = lessons.value.length
 }
 
 const { data: section } = await useAsyncData('sectionData', async () => {
