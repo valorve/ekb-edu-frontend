@@ -2,9 +2,7 @@
   <div class="content">
     <h1>{{ section.title }}</h1>
     <li v-for="lesson in lessons" :key="lesson.lesson_id">
-      <NuxtLink :to="`/lessons/${lesson.lesson_id}`">
         {{ lesson.title }}
-      </NuxtLink>
     </li>
   </div>
 </template>
